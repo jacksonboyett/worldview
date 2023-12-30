@@ -6,7 +6,7 @@ import './globals.css';
 const montserrat = Montserrat({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Worldviewer',
+  title: 'Worldview',
   description: 'View hundreds of statistics from countries all over the world',
 };
 
