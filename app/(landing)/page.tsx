@@ -10,7 +10,7 @@ export default function Landing() {
     <main role='Landing' className=''>
       Landing
       <Link role='getStartedLink' href={isSignedIn ? '/dashboard' : '/sign-up'}>
-        <Button variant='outline' className='rounded-full'>
+        <Button variant='secondary' className='rounded-full'>
           Get Started
         </Button>
       </Link>

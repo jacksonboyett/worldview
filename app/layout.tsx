@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang='en'>
-        <body className={`${montserrat.className} bg-background`}>{children}</body>
+        <body className={`${montserrat.className}`}>{children}</body>
       </html>
     </ClerkProvider>
   );
