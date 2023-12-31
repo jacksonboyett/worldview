@@ -1,22 +1,33 @@
-import { SelectTrigger } from "@radix-ui/react-select";
-import { Select, SelectContent, SelectItem, SelectValue } from "./ui/select";
-import { yearsArr } from "@/constants";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from './ui/select';
+import { yearsArr } from '@/constants';
 
-function ToInput() {
-	return ( 
-		<div className="bg-white px-3 py-1 rounded">
-			<Select>
-				<SelectTrigger>
-					<SelectValue placeholder="To"/>
-				</SelectTrigger>
-				<SelectContent className="bg-muted">
-					{yearsArr.map((year) => (
-						<SelectItem value={year.toString()} key={year}>{year}</SelectItem>
- 					))}
-				</SelectContent>
-			</Select>
-		</div>
-	 );
+interface ToInputProps {
+  updateToYear: (toYear: number) => void;
+}
+
+function ToInput({ updateToYear }: ToInputProps) {
+  return (
+    <div className='bg-white py-1 rounded'>
+      <Select onValueChange={(value) => updateToYear(+value)}>
+        <SelectTrigger>
+          <SelectValue placeholder='To' />
+        </SelectTrigger>
+        <SelectContent className='bg-muted'>
+          {yearsArr.map((year) => (
+            <SelectItem value={year.toString()} key={year}>
+              {year}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    </div>
+  );
 }
 
 export default ToInput;

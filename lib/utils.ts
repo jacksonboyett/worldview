@@ -36,3 +36,22 @@ export function returnYearsArr() {
   }
   return yearsArr
 }
+
+export function getCountryCodeByName(countryName: string): string {
+  let countryCode = '';
+  if (
+    typeof Object.keys(countriesCodesJson).find(
+      (key) => countriesCodesJson[key] === countryName
+    ) != undefined
+  ) {
+    countryCode = Object.keys(countriesCodesJson).find(
+      (key) => countriesCodesJson[key] === countryName
+    )!;
+  }
+  return countryCode;
+}
+
+export function getIndicatorCodeByName(indicatorName: string): string {
+  const indicatorCode = indicatorsCodesJson[indicatorName];
+  return indicatorCode;
+}
