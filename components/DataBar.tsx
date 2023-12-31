@@ -4,28 +4,19 @@ import { useEffect, useState } from 'react';
 import DataForm from './DataForm';
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
 import axios from 'axios';
-
-interface Inputs {
-  country: string;
-  indicator: string;
-  fromYear: number;
-  toYear: number;
-}
+import { WorldBankApiResponse } from '@/types/Types';
+import { Inputs } from '@/types/Types';
 
 interface DataBarProps {
-  updateData: (data: any) => void;
+  updateData: (data: WorldBankApiResponse) => void;
 }
 
 function DataBar({ updateData }: DataBarProps) {
-  const [country, setCountry] = useState<string>('');
-  const [indicator, setIndicator] = useState<string>('');
-  const [fromYear, setFromYear] = useState<number>(0);
-  const [toYear, setToYear] = useState<number>(0);
   const [inputs, setInputs] = useState<Inputs>({
     country: 'Peru',
     indicator: 'Inflation',
     fromYear: 2010,
-    toYear: 2020,
+    toYear: 2012,
   });
   const [popoverOpen, setPopoverOpen] = useState(false);
 
@@ -78,7 +69,7 @@ function DataBar({ updateData }: DataBarProps) {
     const response = await axios.post('/api/visualizer', {
       inputs: inputs,
     });
-    updateData(response)
+    updateData(response.data)
   }
 
   return (

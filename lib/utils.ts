@@ -2,6 +2,7 @@ import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { countriesCodesJson } from '@/constants/countries-with-codes';
 import { indicatorsCodesJson } from '@/constants/indicators-with-codes';
+import { WorldBankApiResponse, IndicatorRecord } from '@/types/Types';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -54,4 +55,34 @@ export function getCountryCodeByName(countryName: string): string {
 export function getIndicatorCodeByName(indicatorName: string): string {
   const indicatorCode = indicatorsCodesJson[indicatorName];
   return indicatorCode;
+}
+
+export function makeXLabelsArr(dataArr: IndicatorRecord[]) {
+  let xLabelsArr = [];
+  for (let i = 0; i < dataArr.length; i++) {
+    xLabelsArr.push(dataArr[i].date);
+  }
+  xLabelsArr = xLabelsArr.reverse();
+  return xLabelsArr;
+}
+
+export function makeDataValuesArray(dataArr: IndicatorRecord[]) {
+  let valuesArr = dataArr.map((yearObj: IndicatorRecord) => {
+    return yearObj.value
+  })
+  return valuesArr.reverse()
+}
+
+export function formatData(responseData: WorldBankApiResponse){
+  let dataArr = responseData[1];
+  let labels = makeXLabelsArr(dataArr);
+  let data = makeDataValuesArray(dataArr);
+  let indicator = dataArr[0].indicator.value;
+  let country = dataArr[0].country.value;
+  let label = `${indicator}, ${country}`;
+  return {
+    labels: labels,
+    label: label,
+    data: data,
+  }
 }

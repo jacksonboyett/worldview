@@ -1,40 +1,25 @@
 'use client';
 
 import DataBar from '@/components/DataBar';
-import { Line } from 'react-chartjs-2';
-import { registerables, Chart } from 'chart.js';
 import { useState } from 'react';
-
-Chart.register(...registerables);
+import Chart from '@/components/Chart';
+import { formatData } from '@/lib/utils';
+import { WorldBankApiResponse } from '@/types/Types';
+import { ChartInputs } from '@/types/Types';
 
 function Visualizer() {
-  const [data, setData] = useState();
+  const [data, setData] = useState<ChartInputs>();
 
-  function updateData(data: any) {
-    setData(data)
-    console.log(data)
+  function updateData(responseData: WorldBankApiResponse) {
+    let formattedData = formatData(responseData);
+    setData(formattedData);
   }
 
   return (
     <div role='Visualizer' className='flex-1 flex flex-col items-stretch'>
-      <div className='mx-4 h-[80vh]'>
-        <Line
-          options={{ maintainAspectRatio: false }}
-          className='h-full'
-          datasetIdKey='id'
-          data={{
-            labels: ['Jun', 'Jul', 'Aug'],
-            datasets: [
-              {
-                label: 'GDP',
-                data: [2400000, 2500000, 2600000],
-              },
-            ],
-          }}
-        />
-      </div>
+      <div className='mx-4 h-[80vh]'>{data ? <Chart data={data} /> : null}</div>
       <div className='mt-auto mx-auto'>
-        <DataBar updateData={updateData}/>
+        <DataBar updateData={updateData} />
       </div>
     </div>
   );
