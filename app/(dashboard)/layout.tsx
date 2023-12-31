@@ -7,7 +7,7 @@ function DashboardLayout({ children }: { children: React.ReactNode }) {
       <div className='hidden h-full md:flex md:w-72 md:flex-col md:fixed md:inset-y-0 z-80 bg-muted'>
         <Sidebar/>
       </div>
-      <main className='flex flex-col flex-1 md:pl-72'>
+      <main className='h-full flex flex-col md:pl-72'>
         <Navbar />
         {children}
       </main>

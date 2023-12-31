@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import DataForm from './DataForm';
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
-import axios from "axios"
+import axios from 'axios';
 
 interface Inputs {
   country: string;
@@ -12,7 +12,11 @@ interface Inputs {
   toYear: number;
 }
 
-function DataBar() {
+interface DataBarProps {
+  updateData: (data: any) => void;
+}
+
+function DataBar({ updateData }: DataBarProps) {
   const [country, setCountry] = useState<string>('');
   const [indicator, setIndicator] = useState<string>('');
   const [fromYear, setFromYear] = useState<number>(0);
@@ -70,19 +74,19 @@ function DataBar() {
     console.log('SUBMITTED');
   }
 
-  async function submitRequest(){
+  async function submitRequest() {
     const response = await axios.post('/api/visualizer', {
       inputs: inputs,
     });
-    console.log(response)
+    updateData(response)
   }
 
   return (
-    <div>
+    <div className='pb-4'>
       <Popover open={popoverOpen}>
         <PopoverTrigger
           onClick={() => setPopoverOpen(!popoverOpen)}
-          className='bg-secondary font-semibold w-24 h-8 rounded-md mb-6'
+          className='bg-muted font-semibold w-24 h-8 rounded-md'
         >
           Inputs
         </PopoverTrigger>
