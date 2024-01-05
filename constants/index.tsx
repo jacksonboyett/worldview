@@ -1,7 +1,12 @@
 import { LayoutDashboard, LineChart, Settings } from 'lucide-react';
-import { returnCountryNamesArr, returnIndicatorNamesArr, returnYearsArr } from '@/lib/utils';
+import {
+  returnCountryNamesArr,
+  returnIndicatorNamesArr,
+  returnYearsArr,
+} from '@/lib/utils';
 import { countriesCodesJson } from './countries-with-codes';
 import { indicatorsCodesJson } from './indicators-with-codes';
+import { Report } from '../types/Types'
 
 export const SIDEBAR_LINKS = [
   {

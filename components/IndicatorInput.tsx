@@ -8,13 +8,13 @@ import {
 import { indicatorsArr } from '@/constants';
 
 interface IndicatorInputProps {
-  updateIndicator: (indicator: string) => void;
+  updateInputs: (key: string, value: string | number) => void;
 }
 
-function IndicatorInput({ updateIndicator }: IndicatorInputProps) {
+function IndicatorInput({ updateInputs }: IndicatorInputProps) {
   return (
     <div className='bg-white py-1 rounded flex-1'>
-      <Select onValueChange={(value) => updateIndicator(value)}>
+      <Select onValueChange={(value) => updateInputs('indicator', value)}>
         <SelectTrigger>
           <SelectValue placeholder='Indicator' />
         </SelectTrigger>

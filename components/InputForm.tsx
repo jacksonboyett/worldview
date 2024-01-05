@@ -8,31 +8,17 @@ import ToInput from './ToInput';
 import { Button } from './ui/button';
 import { getIndicatorCodeByName } from '@/lib/utils';
 
-interface Inputs {
-  country: string;
-  indicator: string;
-  fromYear: number;
-  toYear: number;
-}
-
-interface DataFormProps {
+interface InputFormProps {
   closePopover: () => void;
-  updateCountry: (country: string) => void;
-  updateIndicator: (indicator: string) => void;
-  updateFromYear: (fromYear: number) => void;
-  updateToYear: (toYear: number) => void;
   submitRequest: () => void;
+  updateInputs: (key: string, value: string | number) => void;
 }
 
-function DataForm({
+function InputForm({
   closePopover,
-  updateCountry,
-  updateIndicator,
-  updateFromYear,
-  updateToYear,
-  submitRequest
-}: DataFormProps) {
-
+  submitRequest,
+  updateInputs,
+}: InputFormProps) {
   function submit() {
     submitRequest();
     closePopover();
@@ -40,10 +26,10 @@ function DataForm({
 
   return (
     <div className='flex flex-col rounded-lg bg-muted gap-y-4 md:grid md:grid-cols-2 md:grid-rows-2 md:mb-3 md:mx-3 md:py-0 md:mb-0 md:gap-x-3 lg:flex lg:flex-row lg:justify-between lg:p-0 lg:mb-0'>
-      <CountryInput updateCountry={updateCountry} />
-      <IndicatorInput updateIndicator={updateIndicator} />
-      <FromInput updateFromYear={updateFromYear} />
-      <ToInput updateToYear={updateToYear} />
+      <CountryInput updateInputs={updateInputs} />
+      <IndicatorInput updateInputs={updateInputs} />
+      <FromInput updateInputs={updateInputs} />
+      <ToInput updateInputs={updateInputs} />
       <Button
         onClick={submit}
         className='flex justify-center items-center my-auto col-start-1 col-end-3 lg:col-start-5 lg:col-end-6'
@@ -54,4 +40,4 @@ function DataForm({
   );
 }
 
-export default DataForm;
+export default InputForm;

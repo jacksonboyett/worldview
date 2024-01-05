@@ -8,13 +8,13 @@ import {
 import { yearsArr } from '@/constants';
 
 interface FromInputProps {
-  updateFromYear: (fromYear: number) => void;
+  updateInputs: (key: string, value: string | number) => void;
 }
 
-function FromInput({ updateFromYear }: FromInputProps) {
+function FromInput({ updateInputs }: FromInputProps) {
   return (
     <div className='bg-white py-1 rounded'>
-      <Select onValueChange={(value) => updateFromYear(+value)}>
+      <Select onValueChange={(value) => updateInputs('fromYear', +value)}>
         <SelectTrigger>
           <SelectValue placeholder='From' />
         </SelectTrigger>

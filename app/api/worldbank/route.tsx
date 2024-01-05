@@ -21,7 +21,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json(response.data);
   } catch (error) {
-    // console.log('[VISUALIZER_ERROR]', error);
+    console.log('[WORLD_BANK_ERROR]', error);
     return new NextResponse('Internal Error', { status: 500 });
   }
 }

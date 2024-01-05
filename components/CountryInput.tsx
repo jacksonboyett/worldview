@@ -10,13 +10,13 @@ import {
 import { countriesArr } from '@/constants';
 
 interface CountryInputProps {
-  updateCountry: (country: string) => void;
+  updateInputs: (key: string, value: string | number) => void;
 }
 
-function CountryInput({ updateCountry }: CountryInputProps) {
+function CountryInput({ updateInputs }: CountryInputProps) {
   return (
     <div className='bg-white py-1 rounded flex-1'>
-      <Select onValueChange={(value) => updateCountry(value)}>
+      <Select onValueChange={(value) => updateInputs('country', value)}>
         <SelectTrigger>
           <SelectValue placeholder='Country' />
         </SelectTrigger>

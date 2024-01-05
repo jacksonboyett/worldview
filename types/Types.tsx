@@ -1,7 +1,9 @@
 export interface ChartInputs {
   labels: Array<string>;
   label: string;
-  data: Array<number>;
+  data: Array<number | null>;
+  country: string,
+  indicator: string
 }
 
 export interface Inputs {
@@ -38,3 +40,24 @@ export type IndicatorRecord = {
 };
 
 export type WorldBankApiResponse = [PageData, IndicatorRecord[]];
+
+export type Report = {
+  title: string;
+  introduction: string;
+  yearHeader: string;
+  years: {
+    year: string;
+    indicator: string;
+    value: string;
+    context: string;
+  }[];
+
+  analysis: {
+    analysis_introduction: string;
+    topics: {
+      topic_title: string;
+      topic_analysis: string;
+    }[];
+  };
+  conclusion: string;
+};
