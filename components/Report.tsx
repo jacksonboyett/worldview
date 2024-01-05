@@ -33,7 +33,7 @@ function Report({ report }: ReportProps) {
         </h2>
         <p>{report.analysis.analysis_introduction}</p>
         {report.analysis.topics.map((topic, index) => (
-          <p>
+          <p key={topic.topic_title}>
             <b>
               {index + 1}. {topic.topic_title}
             </b>{' '}
