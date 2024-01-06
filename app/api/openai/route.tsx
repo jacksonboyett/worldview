@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import OpenAI from 'openai';
 import { exampleReport, generate_report } from '@/constants/openai';
 import { promptDataFormatter } from '@/lib/utils';
+import { checkApiLimit, increaseApiLimit } from '@/lib/apiLimit';
 
 const openai = new OpenAI({
   apiKey: process.env.OPEN_AI_SECRET_KEY,
@@ -12,36 +13,43 @@ export async function POST(req: Request) {
     const body = await req.json();
     const { data } = body;
 
+    const freeTrial = await checkApiLimit();
+    if (!freeTrial) {
+      return new NextResponse("Free trial has expired", {status: 403})
+    }
+
     let promptData = promptDataFormatter(data)
 
     const user_prompt = `Write a report as a JSON object of the following data: ${promptData.indicator} of ${promptData.country} from ${promptData.dateRange}: ${promptData.labelValuesArr}. Make sure to include national and global reasons to explain the data. Use the following report as an example: ${exampleReport}`;
 
-    const response = await openai.chat.completions.create({
-      model: 'gpt-3.5-turbo-1106',
-      response_format: { type: 'json_object' },
-      messages: [
-        {
-          role: 'user',
-          content: `${user_prompt}`,
-        },
-      ],
-      functions: generate_report,
-      function_call: 'auto'
-    });
-
-    // const response = {
-    //   choices: [
+    // const response = await openai.chat.completions.create({
+    //   model: 'gpt-3.5-turbo-1106',
+    //   response_format: { type: 'json_object' },
+    //   messages: [
     //     {
-    //       message: {
-    //         function_call: {
-    //           arguments: exampleReport,
-    //         },
-    //       },
+    //       role: 'user',
+    //       content: `${user_prompt}`,
     //     },
     //   ],
-    // };
+    //   functions: generate_report,
+    //   function_call: 'auto'
+    // });
+
+    const response = {
+      choices: [
+        {
+          message: {
+            function_call: {
+              arguments: exampleReport,
+            },
+          },
+        },
+      ],
+    };
 
     console.log(response)
+
+    await increaseApiLimit();
 
     return NextResponse.json(response);
   } catch (error) {

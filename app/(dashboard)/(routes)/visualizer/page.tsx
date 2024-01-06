@@ -8,8 +8,11 @@ import { Inputs, Report } from '@/types/Types';
 import { ChartInputs } from '@/types/Types';
 import ReportButton from '@/components/ReportButton';
 import axios from 'axios';
+import { toast, useToast } from '@/components/ui/use-toast';
+import { Button } from '@/components/ui/button';
 
 function Visualizer() {
+  const { toast } = useToast();
   const [inputs, setInputs] = useState<Inputs>({
     country: 'Austria',
     indicator: 'GDP',
@@ -48,17 +51,29 @@ function Visualizer() {
   async function generateReport() {
     setIsLoading(true);
     if (report) return;
-    const response = await axios.post('/api/openai', {
-      data: data,
-    });
-    console.log(response.data);
-    const reportFromResponse =
-      response.data.choices[0].message.function_call.arguments;
-    let reportJSON = JSON.parse(reportFromResponse);
-    console.log(reportJSON)
-    setReport(reportJSON);
-    // setReport(response.data.choices[0].message.function_call.arguments)
-    setIsLoading(false);
+    try {
+      const response = await axios.post('/api/openai', {
+        data: data,
+      });
+      console.log(response.data);
+      // const reportFromResponse =
+      //   response.data.choices[0].message.function_call.arguments;
+      // let reportJSON = JSON.parse(reportFromResponse);
+      // console.log(reportJSON)
+      // setReport(reportJSON);
+      setReport(response.data.choices[0].message.function_call.arguments);
+      setIsLoading(false);
+    } catch (error: any) {
+      if (error?.response?.status === 403) {
+        setIsLoading(false)
+        toast({
+          title: "Your free trial has ended!",
+          description: "Buy a PRO subscription to generate more reports!",
+          action: <Button className='bg-blue-500 text-white border-0'>GO PRO</Button>,
+          variant: "destructive"
+        })
+      }
+    }
   }
 
   return (

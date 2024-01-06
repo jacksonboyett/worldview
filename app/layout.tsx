@@ -19,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider>
-      <html lang='en'>
+      <html lang="en">
         <body className={`${montserrat.className} relative`}>{children}</body>
       </html>
     </ClerkProvider>
