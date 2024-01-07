@@ -29,6 +29,7 @@ function Visualizer() {
   // const [data, setData] = useState<ChartInputs>();
   const [report, setReport] = useState<Report | undefined>();
   const [isLoading, setIsLoading] = useState(false);
+  const [haveData, setHaveData] = useState(false);
 
   function updateInputs(key: string, value: string | number) {
     setInputs((prevState) => {
@@ -43,9 +44,25 @@ function Visualizer() {
     const response = await axios.post('/api/worldbank', {
       inputs: inputs,
     });
-    console.log(response.data);
+    // console.log(response.data);
     let formattedData = formatData(response.data);
     setData(formattedData);
+    setHaveData(true);
+  }
+
+  async function saveChart() {
+    try {
+      const response = await axios.post('/api/charts', {
+        data: data,
+      });
+      setHaveData(false);
+      toast({
+        title: 'Chart Saved!',
+        description: 'You can view your saved charts on the dashboard!',
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   async function generateReport() {
@@ -65,19 +82,26 @@ function Visualizer() {
       setIsLoading(false);
     } catch (error: any) {
       if (error?.response?.status === 403) {
-        setIsLoading(false)
+        setIsLoading(false);
         toast({
-          title: "Your free trial has ended!",
-          description: "Buy a PRO subscription to generate more reports!",
-          action: <Button className='bg-blue-500 text-white border-0'>GO PRO</Button>,
-          variant: "destructive"
-        })
+          title: 'Your free trial has ended!',
+          description: 'Buy a PRO subscription to generate more reports!',
+          action: (
+            <Button className="bg-blue-500 text-white border-0">GO PRO</Button>
+          ),
+          variant: 'destructive',
+        });
       }
     }
   }
 
   return (
     <div role="Visualizer" className="flex-1 flex flex-col items-stretch">
+      {haveData ? (
+        <Button className="w-24 fixed bottom-4 ml-12" onClick={saveChart}>
+          Save Chart
+        </Button>
+      ) : null}
       <div className="mx-4 h-[80vh]">{data ? <Chart data={data} /> : null}</div>
       <div className="mt-auto flex items-center justify-center mx-4">
         <InputButton updateData={updateData} updateInputs={updateInputs} />

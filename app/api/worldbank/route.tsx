@@ -17,7 +17,7 @@ export async function POST(req: Request) {
     const response = await axios.get(url);
 
 
-		console.log(response.data)
+		// console.log(response.data)
 
     return NextResponse.json(response.data);
   } catch (error) {

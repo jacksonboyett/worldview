@@ -3,6 +3,7 @@ import OpenAI from 'openai';
 import { exampleReport, generate_report } from '@/constants/openai';
 import { promptDataFormatter } from '@/lib/utils';
 import { checkApiLimit, increaseApiLimit } from '@/lib/apiLimit';
+import { storeReport } from '@/lib/reports';
 
 const openai = new OpenAI({
   apiKey: process.env.OPEN_AI_SECRET_KEY,
@@ -48,6 +49,8 @@ export async function POST(req: Request) {
     };
 
     console.log(response)
+
+    await storeReport(response.choices[0].message.function_call.arguments)
 
     await increaseApiLimit();
 

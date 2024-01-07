@@ -1,11 +1,8 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import InputForm from './InputForm';
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
-import axios from 'axios';
-import { WorldBankApiResponse } from '@/types/Types';
-import { Inputs } from '@/types/Types';
 
 interface InputButtonProps {
   updateData: () => void;
@@ -28,7 +25,7 @@ function InputButton({ updateData, updateInputs }: InputButtonProps) {
   }
 
   return (
-    <div className='pb-4 mx-auto'>
+    <div className='fixed bottom-4'>
       <Popover open={popoverOpen}>
         <PopoverTrigger
           onClick={() => setPopoverOpen(!popoverOpen)}
