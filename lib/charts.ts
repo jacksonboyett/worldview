@@ -1,7 +1,7 @@
 import { auth } from '@clerk/nextjs';
 import prismadb from './prismadb';
 
-export const storeChart = async (chart: any) => {
+export const storeChart = async (chart: any, report: any) => {
   const { userId } = auth();
 
   if (!userId) {
@@ -13,7 +13,7 @@ export const storeChart = async (chart: any) => {
       data: {
         userId: userId,
         chart: chart,
-        report: {},
+        report: report,
       },
     });
   } catch (error) {
@@ -36,6 +36,26 @@ export const getCharts = async () => {
     });
 
     return charts
+  } catch (error) {
+    console.log('ERROR WITH PLANETSCALE', error);
+  }
+};
+
+export const getSingleChart = async (chartId: string) => {
+  const { userId } = auth();
+
+  if (!userId) {
+    return;
+  }
+
+  try {
+    const chart = await prismadb.chart.findUnique({
+      where: {
+        id: chartId
+      }
+    });
+
+    return chart
   } catch (error) {
     console.log('ERROR WITH PLANETSCALE', error);
   }

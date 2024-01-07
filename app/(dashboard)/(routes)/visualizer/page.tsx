@@ -53,7 +53,8 @@ function Visualizer() {
   async function saveChart() {
     try {
       const response = await axios.post('/api/charts', {
-        data: data,
+        chart: data,
+        report: report
       });
       setHaveData(false);
       toast({
@@ -73,12 +74,12 @@ function Visualizer() {
         data: data,
       });
       console.log(response.data);
-      // const reportFromResponse =
-      //   response.data.choices[0].message.function_call.arguments;
-      // let reportJSON = JSON.parse(reportFromResponse);
-      // console.log(reportJSON)
-      // setReport(reportJSON);
-      setReport(response.data.choices[0].message.function_call.arguments);
+      const reportFromResponse =
+        response.data.choices[0].message.function_call.arguments;
+      let reportJSON = JSON.parse(reportFromResponse);
+      console.log(reportJSON)
+      setReport(reportJSON);
+      // setReport(response.data.choices[0].message.function_call.arguments);
       setIsLoading(false);
     } catch (error: any) {
       if (error?.response?.status === 403) {

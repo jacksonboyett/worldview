@@ -5,8 +5,8 @@ import { NextResponse } from 'next/server';
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { data } = body;
-    await storeChart(data)
+    const { chart, report } = body;
+    await storeChart(chart, report)
 
     return new NextResponse('Chart saved')
   } catch (error) {
@@ -20,6 +20,8 @@ export async function POST(req: Request) {
 export async function GET(req: Request) {
   try {
     const charts = await getCharts()
+
+    console.log(charts)
 
     return NextResponse.json(charts)
   } catch (error) {
