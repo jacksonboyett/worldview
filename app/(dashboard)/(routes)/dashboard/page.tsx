@@ -44,11 +44,11 @@ function Dashboard() {
           ? charts.map((chart: Chart) => (
               <div key={chart.id}>
                 <Card className="bg-muted h-full flex flex-col">
-                  <CardHeader className="pb-1">
+                  <CardHeader className="pb-1 pl-4">
                     <CardTitle>{chart.chart!.country}</CardTitle>
                     {/* <CardDescription>{chart.chart!.indicator}</CardDescription> */}
                   </CardHeader>
-                  <CardContent className="pb-4">
+                  <CardContent className="pb-4 pl-4">
                     <p>
                       {chart.chart!.indicator}: {chart.chart!.labels[0]} -{' '}
                       {chart.chart!.labels[chart.chart!.labels.length - 1]}
