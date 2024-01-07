@@ -21,8 +21,6 @@ export async function GET(req: Request) {
   try {
     const charts = await getCharts()
 
-    console.log(charts)
-
     return NextResponse.json(charts)
   } catch (error) {
     console.log('PlanetScale error', error);
