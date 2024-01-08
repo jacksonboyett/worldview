@@ -35,7 +35,7 @@ function InputButton({ updateData, updateInputs }: InputButtonProps) {
         </PopoverTrigger>
         <PopoverContent
           onCloseAutoFocus={() => onSubmit()}
-          className='bg-muted w-80 px-3 md:w-[60vw] md:px-0 lg:w-[70vw]'
+          className='bg-muted w-80 px-3 md:w-[60vw] md:px-0 lg:w-[70vw] mb-6'
         >
           <InputForm
             updateInputs={updateInputs}

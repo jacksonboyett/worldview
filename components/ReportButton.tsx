@@ -33,7 +33,7 @@ function ReportButton({
   return report ? (
     <Dialog>
       <DialogTrigger>
-        <div className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white ring-1 ring-blue-100 font-semibold rounded flex justify-center items-center text-center fixed right-4 bottom-4 w-20 py-1 sm:mb-4 sm:bottom-0 sm:py-0 sm:h-12 sm:w-32 cursor-pointer active:bg-muted/70">
+        <div className="bg-primary text-white ring-1 ring-blue-100 font-semibold rounded flex justify-center items-center text-center fixed left-4 md:left-80 bottom-4 w-20 py-1 sm:mb-4 sm:bottom-0 sm:py-0 sm:h-12 sm:w-32 cursor-pointer active:bg-muted/70">
           View Report
         </div>
       </DialogTrigger>
@@ -50,7 +50,7 @@ function ReportButton({
     <button
       disabled={isLoading}
       onClick={() => generateReport()}
-      className="bg-primary text-white font-semibold rounded-lg flex justify-center items-center text-center fixed right-4 bottom-4 py-1 sm:mb-4 sm:bottom-0 h-14 w-32 cursor-pointer active:bg-muted/70">
+      className="bg-primary text-white font-semibold rounded-lg flex justify-center items-center text-center fixed left-0 sm:left-4 md:left-80 bottom-4 py-1 sm:mb-4 sm:bottom-0 h-14 w-24 cursor-pointer active:bg-muted/70">
       {isLoading ? (
         <div className='flex h-full w-full justify-center items-center active:bg-muted'>
           <Loader className="animate-[spin_3s_linear_infinite] mr-1" />
