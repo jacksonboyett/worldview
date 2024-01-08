@@ -1,6 +1,6 @@
-import { auth } from "@clerk/nextjs";
-import prismadb from "./prismadb";
-import { MAX_FREE_COUNTS } from "@/constants/premiumSpecs";
+import { auth } from '@clerk/nextjs';
+import prismadb from './prismadb';
+import { MAX_FREE_COUNTS } from '@/constants/premiumSpecs';
 
 export const increaseApiLimit = async () => {
   const { userId } = auth();
@@ -9,11 +9,15 @@ export const increaseApiLimit = async () => {
     return;
   }
 
-  const userApiLimit = await prismadb.userApiLimit.findUnique({
-    where: {
-      userId,
-    },
-  });
+  try {
+    const userApiLimit = await prismadb.userApiLimit.findUnique({
+      where: {
+        userId,
+      },
+    });
+  } catch (error) {
+    console.log('Error fetching data with prisma', error);
+  }
 
   if (userApiLimit) {
     await prismadb.userApiLimit.update({
@@ -34,37 +38,49 @@ export const checkApiLimit = async () => {
     return false;
   }
 
-  const userApiLimit = await prismadb.userApiLimit.findUnique({
-    where: {
-      userId: userId,
-    },
-  });
+  let userApiLimit: any 
 
-	if (!userApiLimit || userApiLimit.count < MAX_FREE_COUNTS) {
-		return true
-	} else {
-		return false
-	}
+  try {
+    const userApiLimit = await prismadb.userApiLimit.findUnique({
+      where: {
+        userId: userId,
+      },
+    });
+  } catch (error) {
+    console.log('Error fetching data with prisma', error);
+  }
+
+  if (!userApiLimit || userApiLimit.count < MAX_FREE_COUNTS) {
+    return true;
+  } else {
+    return false;
+  }
 };
 
 export const getApiLimitCount = async () => {
-  console.log("API LIMIT COUNT CALLED")
-	const { userId } = auth();
+  console.log('API LIMIT COUNT CALLED');
+  const { userId } = auth();
 
-	if (!userId) {
-		return 0
-	}
+  if (!userId) {
+    return 0;
+  }
 
-	const userApiLimit = await prismadb.userApiLimit.findUnique({
-		where: {
-			userId
-		}
-	})
+  let userApiLimit: any 
 
-	if (!userApiLimit) {
-		return 0
-	}
+  try {
+    const userApiLimit = await prismadb.userApiLimit.findUnique({
+      where: {
+        userId,
+      },
+    });
+  } catch (error) {
+    console.log('Error fetching data with prisma', error);
+  }
 
-  console.log(userApiLimit.count)
-	return userApiLimit.count
-}
+  if (!userApiLimit) {
+    return 0;
+  }
+
+  console.log(userApiLimit.count);
+  return userApiLimit.count;
+};
