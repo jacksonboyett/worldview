@@ -32,18 +32,16 @@ function Dashboard() {
 
   return (
     <div role="Dashboard" className="text-white mx-4">
-      <div className="md:flex items-center">
-        <p className="text-2xl tracking-wider font-semibold m-0 p-0">
-          Welcome to Worldview!
-        </p>
-        <Link href="/visualizer">
-          <Button className="mt-6 md:mt-0 md:ml-4">
-            <LineChart/>
-            <p className='ml-2'>Visualize Data Here</p>
-          </Button>
-        </Link>
-      </div>
-      <div className="mt-6">View your saved charts below</div>
+      <p className="text-2xl tracking-wider font-semibold m-0 p-0 underline">
+        Welcome to Worldview!
+      </p>
+      <Link href="/visualizer">
+        <Button className="mt-6">
+          <LineChart />
+          <p className="ml-2">Visualize Data Here</p>
+        </Button>
+      </Link>
+      <div className="mt-6">Or view your saved charts below:</div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-2">
         {charts
           ? charts.map((chart: Chart) => (
