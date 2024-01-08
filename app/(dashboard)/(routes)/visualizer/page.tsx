@@ -10,8 +10,10 @@ import ReportButton from '@/components/ReportButton';
 import axios from 'axios';
 import { toast, useToast } from '@/components/ui/use-toast';
 import { Button } from '@/components/ui/button';
+import { useRouter } from 'next/navigation';
 
 function Visualizer() {
+  const router = useRouter();
   const { toast } = useToast();
   const [inputs, setInputs] = useState<Inputs>({
     country: 'Austria',
@@ -44,7 +46,6 @@ function Visualizer() {
     const response = await axios.post('/api/worldbank', {
       inputs: inputs,
     });
-    // console.log(response.data);
     let formattedData = formatData(response.data);
     setData(formattedData);
     setHaveData(true);
@@ -93,6 +94,8 @@ function Visualizer() {
           variant: 'destructive',
         });
       }
+    } finally {
+      router.refresh();
     }
   }
 

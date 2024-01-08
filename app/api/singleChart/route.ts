@@ -9,8 +9,6 @@ export async function POST(req: Request) {
 
     const chart = await getSingleChart(data)
 
-    console.log(chart)
-
     return NextResponse.json(chart)
   } catch (error) {
     console.log('PlanetScale error', error);

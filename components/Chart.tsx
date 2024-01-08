@@ -13,8 +13,6 @@ interface ChartProps {
 function Chart({ data }: ChartProps) {
   if (!data) return null;
 
-  console.log(data)
-
   return (
     <Line
       options={{

@@ -19,7 +19,6 @@ function Dashboard() {
   async function getCharts() {
     try {
       const response = await axios.get('/api/charts');
-      // console.log(response.data);
       setCharts(response.data);
     } catch (error) {
       console.log(error);
@@ -29,11 +28,7 @@ function Dashboard() {
   useEffect(() => {
     getCharts();
   }, []);
-
-  useEffect(() => {
-    console.log(charts);
-  }, [charts]);
-
+  
   return (
     <div role="Dashboard" className="text-white mx-4">
       <p className="text-2xl tracking-wider font-semibold m-0 p-0">

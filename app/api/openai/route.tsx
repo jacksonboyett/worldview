@@ -48,12 +48,11 @@ export async function POST(req: Request) {
       ],
     };
 
-    console.log(response)
-
     if (!response.choices[0].message.function_call) return
     await storeReport(response.choices[0].message.function_call.arguments)
 
     await increaseApiLimit();
+    console.log('Increasing API limit')
 
     return NextResponse.json(response);
   } catch (error) {

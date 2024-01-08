@@ -112,6 +112,5 @@ export function promptDataFormatter(data: ChartInputs) {
     dateRange,
     labelValuesArr
   }
-  console.log(filteredArr)
   return promptData
 }

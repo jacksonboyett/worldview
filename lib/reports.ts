@@ -8,8 +8,6 @@ export const storeReport = async (report: any) => {
     return;
   }
 
-  // console.log(report)
-
   try {
     const prismaResponse = await prismadb.report.create({
       data: {
@@ -17,8 +15,6 @@ export const storeReport = async (report: any) => {
         report: report,
       },
     });
-
-    // console.log(prismaResponse);
   } catch (error) {
     console.log('ERROR WITH PLANETSCALE', error);
   }
