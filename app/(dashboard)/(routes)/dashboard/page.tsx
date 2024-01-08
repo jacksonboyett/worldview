@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/card';
 import { Chart } from '@prisma/client';
 import axios from 'axios';
+import { LineChart } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
@@ -28,13 +29,22 @@ function Dashboard() {
   useEffect(() => {
     getCharts();
   }, []);
-  
+
   return (
     <div role="Dashboard" className="text-white mx-4">
-      <p className="text-2xl tracking-wider font-semibold m-0 p-0">
-        Welcome to Worldview!
-      </p>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-12">
+      <div className="md:flex items-center">
+        <p className="text-2xl tracking-wider font-semibold m-0 p-0">
+          Welcome to Worldview!
+        </p>
+        <Link href="/visualizer">
+          <Button className="mt-6 md:mt-0 md:ml-4">
+            <LineChart/>
+            <p className='ml-2'>Visualize Data Here</p>
+          </Button>
+        </Link>
+      </div>
+      <div className="mt-6">View your saved charts below</div>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-2">
         {charts
           ? charts.map((chart: Chart) => (
               <div key={chart.id}>

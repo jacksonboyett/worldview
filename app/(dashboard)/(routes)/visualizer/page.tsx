@@ -101,14 +101,16 @@ function Visualizer() {
 
   return (
     <div role="Visualizer" className="flex-1 flex flex-col items-stretch">
-      {haveData ? (
-        <Button className="w-24 fixed bottom-4 ml-12" onClick={saveChart}>
+      <div className="mx-4 h-[80vh]">{data ? <Chart data={data} /> : null}</div>
+      <div className="mt-auto flex items-center justify-center mx-4">
+        <div className='fixed bottom-2 flex flex-col gap-1'>
+        <InputButton updateData={updateData} updateInputs={updateInputs} />
+        {haveData ? (
+        <Button className="w-24 h-6" onClick={saveChart}>
           Save Chart
         </Button>
       ) : null}
-      <div className="mx-4 h-[80vh]">{data ? <Chart data={data} /> : null}</div>
-      <div className="mt-auto flex items-center justify-center mx-4">
-        <InputButton updateData={updateData} updateInputs={updateInputs} />
+        </div>
         <ReportButton
           generateReport={generateReport}
           report={report}
