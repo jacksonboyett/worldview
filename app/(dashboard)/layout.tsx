@@ -12,7 +12,6 @@ async function DashboardLayout({ children }: { children: React.ReactNode }) {
         <Sidebar apiLimitCount={apiLimitCount} />
       </div>
       <main className="h-full flex flex-col md:pl-72">
-        <CrispProvider />
         <Navbar />
         {children}
         <Toaster />

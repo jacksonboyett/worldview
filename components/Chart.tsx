@@ -16,6 +16,7 @@ function Chart({ data }: ChartProps) {
   return (
     <Line
       options={{
+        spanGaps: true, 
         plugins: {
           legend: {
             labels: {

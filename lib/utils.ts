@@ -77,6 +77,26 @@ export function makeDataValuesArray(dataArr: IndicatorRecord[]) {
   return valuesArr.reverse();
 }
 
+// export function formatData(responseData: WorldBankApiResponse) {
+//   let dataArr = responseData[1];
+//   let labels = makeXLabelsArr(dataArr);
+//   let data = makeDataValuesArray(dataArr);
+//   let indicator = dataArr[0].indicator.value;
+//   let country = dataArr[0].country.value;
+//   let label = `${indicator}, ${country}`;
+//   let filteredLabels: string[] = [];
+//   const filteredData = data.filter((n, index) => {
+//     if (n) filteredLabels.push(labels[index])
+//     return n})
+//   return {
+//     labels: filteredLabels,
+//     label: label,
+//     data: filteredData,
+//     country: country,
+//     indicator: indicator,
+//   };
+// }
+
 export function formatData(responseData: WorldBankApiResponse) {
   let dataArr = responseData[1];
   let labels = makeXLabelsArr(dataArr);
@@ -89,13 +109,14 @@ export function formatData(responseData: WorldBankApiResponse) {
     if (n) filteredLabels.push(labels[index])
     return n})
   return {
-    labels: filteredLabels,
+    labels: labels,
     label: label,
-    data: filteredData,
+    data: data,
     country: country,
     indicator: indicator,
   };
 }
+
 
 // export function promptDataFormatter(data: ChartInputs) {
 //   const country = data.country;

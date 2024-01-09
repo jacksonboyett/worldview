@@ -16,10 +16,11 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 function Dashboard() {
-  const [charts, setCharts] = useState<Array<Chart>>();
+  const [charts, setCharts] = useState<Array<Chart>>([]);
   async function getCharts() {
     try {
       const response = await axios.get('/api/charts');
+      console.log(response)
       setCharts(response.data);
     } catch (error) {
       console.log(error);
@@ -41,7 +42,7 @@ function Dashboard() {
           <p className="ml-2">Visualize Data Here</p>
         </Button>
       </Link>
-      <div className="mt-6">Or view your saved charts below:</div>
+      {charts[0] ? <div className="mt-6">Or view your saved charts below:</div> : null}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-2">
         {charts
           ? charts.map((chart: Chart) => (

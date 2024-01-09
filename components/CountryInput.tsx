@@ -17,7 +17,7 @@ function CountryInput({ updateInputs }: CountryInputProps) {
   return (
     <div className='bg-white py-1 rounded flex-1'>
       <Select onValueChange={(value) => updateInputs('country', value)}>
-        <SelectTrigger>
+        <SelectTrigger className='active:border-2 active:border-black'>
           <SelectValue placeholder='Country' />
         </SelectTrigger>
         <SelectContent className='bg-muted'>
