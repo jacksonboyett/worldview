@@ -21,7 +21,7 @@ export async function POST(req: Request) {
 
     let promptData = promptDataFormatter(data)
 
-    const user_prompt = `Write a report as a JSON object of the following data: ${promptData.indicator} of ${promptData.country} from ${promptData.dateRange}: ${promptData.labelValuesArr}. Make sure to include national and global reasons to explain the data. Use the following report as an example: ${exampleReport}`;
+    const user_prompt = `Write a report as a JSON object of the following data: ${promptData.indicator} of ${promptData.country} from ${promptData.dateRange}: ${promptData.filteredArr}. Make sure to include national and global reasons to explain the data. Use the following report as an example: ${exampleReport}`;
 
     // const response = await openai.chat.completions.create({
     //   model: 'gpt-3.5-turbo-1106',

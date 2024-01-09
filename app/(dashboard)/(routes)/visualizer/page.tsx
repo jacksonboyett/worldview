@@ -16,9 +16,9 @@ function Visualizer() {
   const router = useRouter();
   const { toast } = useToast();
   const [inputs, setInputs] = useState<Inputs>({
-    country: 'Austria',
-    indicator: 'GDP',
-    fromYear: 2015,
+    country: 'Afghanistan',
+    indicator: 'Cause of death by injury (% of total)',
+    fromYear: 2014,
     toYear: 2020,
   });
   const [data, setData] = useState<ChartInputs>({

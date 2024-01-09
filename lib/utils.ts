@@ -84,14 +84,40 @@ export function formatData(responseData: WorldBankApiResponse) {
   let indicator = dataArr[0].indicator.value;
   let country = dataArr[0].country.value;
   let label = `${indicator}, ${country}`;
+  let filteredLabels: string[] = [];
+  const filteredData = data.filter((n, index) => {
+    if (n) filteredLabels.push(labels[index])
+    return n})
   return {
-    labels: labels,
+    labels: filteredLabels,
     label: label,
-    data: data,
+    data: filteredData,
     country: country,
     indicator: indicator,
   };
 }
+
+// export function promptDataFormatter(data: ChartInputs) {
+//   const country = data.country;
+//   const indicator = data.indicator;
+//   const dateRange = `${data.labels[0]} - ${
+//     data.labels[data.labels.length - 1]
+//   }`;
+//   const labelValuesArr = data.data.map((value, index) => (
+//     ` ${data.labels[index]}: ${value}`
+//   ))
+//   let keyWord ='null';
+//   let filteredArr = labelValuesArr.filter(function (str) {
+//     return str.indexOf(keyWord) === -1
+//   })
+//   let promptData = {
+//     country,
+//     indicator,
+//     dateRange,
+//     labelValuesArr
+//   }
+//   return promptData
+// }
 
 export function promptDataFormatter(data: ChartInputs) {
   const country = data.country;
@@ -106,11 +132,12 @@ export function promptDataFormatter(data: ChartInputs) {
   let filteredArr = labelValuesArr.filter(function (str) {
     return str.indexOf(keyWord) === -1
   })
+  console.log(filteredArr)
   let promptData = {
     country,
     indicator,
     dateRange,
-    labelValuesArr
+    filteredArr
   }
   return promptData
 }
