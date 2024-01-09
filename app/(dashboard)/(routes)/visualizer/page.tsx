@@ -55,7 +55,7 @@ function Visualizer() {
     try {
       const response = await axios.post('/api/charts', {
         chart: data,
-        report: report
+        report: report,
       });
       setHaveData(false);
       toast({
@@ -74,13 +74,13 @@ function Visualizer() {
       const response = await axios.post('/api/openai', {
         data: data,
       });
-      // console.log(response.data);
-      // const reportFromResponse =
-      //   response.data.choices[0].message.function_call.arguments;
-      // let reportJSON = JSON.parse(reportFromResponse);
-      // console.log(reportJSON)
-      // setReport(reportJSON);
-      setReport(response.data.choices[0].message.function_call.arguments);
+      console.log(response.data);
+      const reportFromResponse =
+        response.data.choices[0].message.function_call.arguments;
+      let reportJSON = JSON.parse(reportFromResponse);
+      console.log(reportJSON);
+      setReport(reportJSON);
+      // setReport(response.data.choices[0].message.function_call.arguments);
       setIsLoading(false);
     } catch (error: any) {
       if (error?.response?.status === 403) {
@@ -103,19 +103,21 @@ function Visualizer() {
     <div role="Visualizer" className="flex-1 flex flex-col items-stretch">
       <div className="mx-4 h-[80vh]">{data ? <Chart data={data} /> : null}</div>
       <div className="mt-auto flex items-center justify-center mx-4">
-        <div className='fixed bottom-2 flex flex-col gap-1'>
-        <InputButton updateData={updateData} updateInputs={updateInputs} />
-        {haveData ? (
-        <Button className="w-24 h-6" onClick={saveChart}>
-          Save Chart
-        </Button>
-      ) : null}
+        <div className="fixed bottom-2 flex flex-col gap-1">
+          <InputButton updateData={updateData} updateInputs={updateInputs} />
+          {haveData ? (
+            <Button className="w-24 h-6" onClick={saveChart}>
+              Save Chart
+            </Button>
+          ) : null}
         </div>
-        <ReportButton
-          generateReport={generateReport}
-          report={report}
-          isLoading={isLoading}
-        />
+        {haveData ? (
+          <ReportButton
+            generateReport={generateReport}
+            report={report}
+            isLoading={isLoading}
+          />
+        ) : null}
       </div>
     </div>
   );

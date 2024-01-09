@@ -39,12 +39,14 @@ function VisualizerWithChartId({ params }: { params: { chartId: string } }) {
       });
       const reportFromResponse =
         response.data.choices[0].message.function_call.arguments;
-      // let reportJSON = JSON.parse(reportFromResponse);
-      // console.log(reportJSON)
-      // setReport(reportJSON);
-      setReport(reportFromResponse);
-      console.log(reportFromResponse);
-      await saveReport(reportFromResponse)
+      let reportJSON = JSON.parse(reportFromResponse);
+      console.log(reportJSON);
+      setReport(reportJSON);
+      await saveReport(reportJSON);
+      console.log(reportJSON)
+      // setReport(reportFromResponse);
+      // console.log(reportFromResponse);
+      // await saveReport(reportFromResponse)
       setIsLoading(false);
     } catch (error: any) {
       if (error?.response?.status === 403) {
