@@ -13,7 +13,7 @@ import {
 import { Globe, Loader, Loader2, Loader2Icon, Star } from 'lucide-react';
 
 interface ReportButtonProps {
-  report: Report | undefined;
+  report: ReportType | null;
   generateReport: () => void;
   isLoading: boolean;
 }

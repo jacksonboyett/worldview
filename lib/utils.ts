@@ -132,7 +132,6 @@ export function promptDataFormatter(data: ChartInputs) {
   let filteredArr = labelValuesArr.filter(function (str) {
     return str.indexOf(keyWord) === -1
   })
-  console.log(filteredArr)
   let promptData = {
     country,
     indicator,

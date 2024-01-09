@@ -30,12 +30,34 @@ export const getReports = async () => {
   try {
     const reports = await prismadb.report.findMany({
       where: {
-        userId
-      }
+        userId,
+      },
     });
 
-    return reports
+    return reports;
   } catch (error) {
     console.log('ERROR WITH PLANETSCALE', error);
+  }
+};
+
+export const saveReport = async (report: any, chartId: string) => {
+  console.log(report)
+  const { userId } = auth();
+
+  if (!userId) {
+    return;
+  }
+
+  try {
+    const updateReport = await prismadb.chart.update({
+      where: {
+        id: chartId,
+      },
+      data: {
+        report: report,
+      },
+    });
+  } catch (error) {
+    console.log('ERROR WITH STORING REPORT', error);
   }
 };

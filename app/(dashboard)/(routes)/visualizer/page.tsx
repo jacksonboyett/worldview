@@ -29,7 +29,7 @@ function Visualizer() {
     data: [null, null, null, null],
   });
   // const [data, setData] = useState<ChartInputs>();
-  const [report, setReport] = useState<Report | undefined>();
+  const [report, setReport] = useState<Report | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [haveData, setHaveData] = useState(false);
 

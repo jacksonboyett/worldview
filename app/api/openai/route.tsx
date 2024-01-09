@@ -52,7 +52,6 @@ export async function POST(req: Request) {
     await storeReport(response.choices[0].message.function_call.arguments)
 
     await increaseApiLimit();
-    console.log('Increasing API limit')
 
     return NextResponse.json(response);
   } catch (error) {

@@ -60,7 +60,6 @@ export const checkApiLimit = async () => {
 };
 
 export const getApiLimitCount = async () => {
-  console.log('API LIMIT COUNT CALLED');
   const { userId } = auth();
 
   if (!userId) {
@@ -83,6 +82,5 @@ export const getApiLimitCount = async () => {
     return 0;
   }
 
-  console.log(userApiLimit.count);
   return userApiLimit.count;
 };
