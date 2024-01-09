@@ -4,7 +4,6 @@ import { Inter } from 'next/font/google';
 import { ClerkProvider } from '@clerk/nextjs';
 import './globals.css';
 import ModalProvider from '@/components/ModalProvider';
-import CrispProvider from '@/components/CrispProvider';
 
 const montserrat = Montserrat({ subsets: ['latin'] });
 const inter = Inter({ subsets: ['latin'] });
@@ -22,7 +21,6 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <CrispProvider />
         <body className={`${montserrat.className} relative`}>
           <ModalProvider />
           {children}

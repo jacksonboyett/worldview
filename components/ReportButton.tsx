@@ -51,7 +51,7 @@ function ReportButton({
       disabled={isLoading}
       onClick={() => generateReport()}
       className="bg-primary text-white font-semibold rounded-lg flex justify-center items-center text-center fixed left-0 sm:left-4 md:left-80 bottom-2 py-1 sm:mb-4 sm:bottom-0 h-14 w-28 cursor-pointer active:bg-muted/70">
-      {false ? (
+      {isLoading ? (
         <div className='flex h-full w-full justify-center items-center active:bg-muted'>
           <Loader className="animate-[spin_3s_linear_infinite] mr-1" />
           Loading
