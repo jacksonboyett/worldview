@@ -9,6 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { ChartInputs, Report } from '@/types/Types';
 import { Chart } from '@prisma/client';
 import axios from 'axios';
 import { LineChart, Loader } from 'lucide-react';
@@ -16,9 +17,18 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
+type ChartType = {
+  id: string;
+  userId: string;
+  chart: ChartInputs
+  report: Report
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 function Dashboard() {
   const router = useRouter();
-  const [charts, setCharts] = useState<Array<Chart>>([]);
+  const [charts, setCharts] = useState<Array<ChartType>>([]);
   const [isDeleting, setIsDeleting] = useState(false)
   async function getCharts() {
     try {
@@ -64,7 +74,7 @@ function Dashboard() {
       ) : null}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-2">
         {charts
-          ? charts.map((chart: Chart) => (
+          ? charts.map((chart: ChartType) => (
               <div key={chart.id}>
                 <Card className="bg-muted h-full flex flex-col">
                   <CardHeader className="pb-1 pl-4">
