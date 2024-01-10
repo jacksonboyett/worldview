@@ -161,3 +161,7 @@ export function promptDataFormatter(data: ChartInputs) {
   }
   return promptData
 }
+
+export function absoluteUrl(path: string){
+  return `${process.env.NEXT_PUBLIC_APP_URL}${path}`
+}

@@ -31,9 +31,10 @@ export const SIDEBAR_LINKS = [
 
 interface SidebarProps {
   apiLimitCount: number;
+  isPro: boolean
 }
 
-function Sidebar({ apiLimitCount }: SidebarProps) {
+function Sidebar({ apiLimitCount = 0, isPro = false }: SidebarProps) {
   const pathname = usePathname();
   return (
     <div className="space-y-4 py-4 flex flex-col h-full bg-muted text-black">
@@ -67,7 +68,7 @@ function Sidebar({ apiLimitCount }: SidebarProps) {
             </Link>
           ))}
         </div>
-        <FreeCounter apiLimitCount={apiLimitCount} isPro={false} />
+        <FreeCounter apiLimitCount={apiLimitCount} isPro={isPro} />
       </div>
     </div>
   );

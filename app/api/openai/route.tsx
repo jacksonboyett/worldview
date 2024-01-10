@@ -4,6 +4,8 @@ import { exampleReport, generate_report } from '@/constants/openai';
 import { promptDataFormatter } from '@/lib/utils';
 import { checkApiLimit, increaseApiLimit } from '@/lib/apiLimit';
 import { storeReport } from '@/lib/reports';
+import { checkSubscription } from '@/lib/subscription';
+
 
 const openai = new OpenAI({
   apiKey: process.env.OPEN_AI_SECRET_KEY,
@@ -15,7 +17,9 @@ export async function POST(req: Request) {
     const { data } = body;
 
     const freeTrial = await checkApiLimit();
-    if (!freeTrial) {
+    const isPro = await checkSubscription();
+
+    if (!freeTrial && !isPro) {
       return new NextResponse("Free trial has expired", {status: 403})
     }
 
@@ -23,35 +27,37 @@ export async function POST(req: Request) {
 
     const user_prompt = `Write a report as a JSON object of the following data: ${promptData.indicator} of ${promptData.country} from ${promptData.dateRange}: ${promptData.filteredArr}. Make sure to include national and global reasons to explain the data. Use the following report as an example: ${exampleReport}`;
 
-    const response = await openai.chat.completions.create({
-      model: 'gpt-3.5-turbo-1106',
-      response_format: { type: 'json_object' },
-      messages: [
-        {
-          role: 'user',
-          content: `${user_prompt}`,
-        },
-      ],
-      functions: generate_report,
-      function_call: 'auto'
-    });
-
-    // const response = {
-    //   choices: [
+    // const response = await openai.chat.completions.create({
+    //   model: 'gpt-3.5-turbo-1106',
+    //   response_format: { type: 'json_object' },
+    //   messages: [
     //     {
-    //       message: {
-    //         function_call: {
-    //           arguments: exampleReport,
-    //         },
-    //       },
+    //       role: 'user',
+    //       content: `${user_prompt}`,
     //     },
     //   ],
-    // };
+    //   functions: generate_report,
+    //   function_call: 'auto'
+    // });
+
+    const response = {
+      choices: [
+        {
+          message: {
+            function_call: {
+              arguments: exampleReport,
+            },
+          },
+        },
+      ],
+    };
 
     if (!response.choices[0].message.function_call) return
     await storeReport(response.choices[0].message.function_call.arguments)
 
+    if (!isPro) {
     await increaseApiLimit();
+    }
 
     return NextResponse.json(response);
   } catch (error) {
