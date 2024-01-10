@@ -10,16 +10,16 @@ import { getApiLimitCount } from '@/lib/apiLimit';
 
 export const SIDEBAR_LINKS = [
   {
-    label: 'Dashboard',
-    icon: LayoutDashboard,
-    href: '/dashboard',
-    color: 'text-sky-500',
-  },
-  {
     label: 'Visualizer',
     icon: LineChart,
     href: '/visualizer',
     color: 'text-violet-500',
+  },
+  {
+    label: 'Saved Charts',
+    icon: LayoutDashboard,
+    href: '/dashboard',
+    color: 'text-sky-500',
   },
   {
     label: 'Settings',
@@ -39,7 +39,7 @@ function Sidebar({ apiLimitCount = 0, isPro = false }: SidebarProps) {
   return (
     <div className="space-y-4 py-4 flex flex-col h-full bg-muted text-black">
       <div className="px-3 py-2 flex-1 flex flex-col">
-        <Link href="/dashboard" className="flex items-center mb-14">
+        <Link href="/visualizer" className="flex items-center mb-14">
           <div className="relative w-12 h-12 mr-2">
             <Globe size={48} />
           </div>

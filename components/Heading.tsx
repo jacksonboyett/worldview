@@ -22,8 +22,8 @@ function Heading({
         <Icon className={cn('w-10 h-10', iconColor)} />
       </div>
       <div>
-        <h2 className='text-3xl font-bold'>{title}</h2>
-        <p className='text-sm text-muted-foreground'>{description}</p>
+        <h2 className='text-3xl font-semibold text-muted'>{title}</h2>
+        <p className='text-sm text-muted'>{description}</p>
       </div>
     </div>
   );

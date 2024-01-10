@@ -23,7 +23,6 @@ function Dashboard() {
   async function getCharts() {
     try {
       const response = await axios.get('/api/charts');
-      console.log(response.data);
       setCharts(response.data);
     } catch (error) {
       console.log(error);
@@ -52,7 +51,7 @@ function Dashboard() {
   return (
     <div role="Dashboard" className="text-white mx-4">
       <p className="text-2xl tracking-wider font-semibold m-0 p-0 underline">
-        Welcome to Worldview!
+        Thank you for using Worldview!
       </p>
       <Link href="/visualizer">
         <Button className="mt-6">

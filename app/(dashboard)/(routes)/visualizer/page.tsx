@@ -46,6 +46,7 @@ function Visualizer() {
     const response = await axios.post('/api/worldbank', {
       inputs: inputs,
     });
+    console.log(response)
     let formattedData = formatData(response.data);
     setData(formattedData);
     setHaveData(true);
@@ -60,7 +61,7 @@ function Visualizer() {
       setHaveData(false);
       toast({
         title: 'Chart Saved!',
-        description: 'You can view your saved charts on the dashboard!',
+        description: 'You can view your saved charts on the Saved Charts tab!',
       });
     } catch (error) {
       console.log(error);
@@ -74,13 +75,13 @@ function Visualizer() {
       const response = await axios.post('/api/openai', {
         data: data,
       });
-      // console.log(response.data);
-      // const reportFromResponse =
-      //   response.data.choices[0].message.function_call.arguments;
-      // let reportJSON = JSON.parse(reportFromResponse);
-      // console.log(reportJSON);
-      // setReport(reportJSON);
-      setReport(response.data.choices[0].message.function_call.arguments);
+      console.log(response.data);
+      const reportFromResponse =
+        response.data.choices[0].message.function_call.arguments;
+      let reportJSON = JSON.parse(reportFromResponse);
+      console.log(reportJSON);
+      setReport(reportJSON);
+      // setReport(response.data.choices[0].message.function_call.arguments);
       setIsLoading(false);
     } catch (error: any) {
       if (error?.response?.status === 403) {
