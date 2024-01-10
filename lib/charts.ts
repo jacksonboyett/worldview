@@ -60,3 +60,21 @@ export const getSingleChart = async (chartId: string) => {
     console.log('ERROR WITH PLANETSCALE', error);
   }
 };
+
+export const deleteChart = async (chartId: string) => {
+  const { userId } = auth();
+
+  if (!userId) {
+    return;
+  }
+
+  try {
+    const prismaResponse = await prismadb.chart.delete({
+      where: {
+        id: chartId
+      }
+    });
+  } catch (error) {
+    console.log('ERROR WITH DELETING CHART', error);
+  }
+};

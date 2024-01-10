@@ -11,19 +11,37 @@ import {
 } from '@/components/ui/card';
 import { Chart } from '@prisma/client';
 import axios from 'axios';
-import { LineChart } from 'lucide-react';
+import { LineChart, Loader } from 'lucide-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 function Dashboard() {
+  const router = useRouter();
   const [charts, setCharts] = useState<Array<Chart>>([]);
+  const [isDeleting, setIsDeleting] = useState(false)
   async function getCharts() {
     try {
       const response = await axios.get('/api/charts');
-      console.log(response)
+      console.log(response.data);
       setCharts(response.data);
     } catch (error) {
       console.log(error);
+    }
+  }
+
+  async function deleteChart(chartId: string) {
+    setIsDeleting(true)
+    try {
+      const response = await axios.post('/api/deleteChart', {
+        chartId: chartId
+      });
+      getCharts()
+      setIsDeleting(false)
+    } catch (error) {
+      console.log(error);
+    } finally {
+      router.refresh();
     }
   }
 
@@ -42,7 +60,9 @@ function Dashboard() {
           <p className="ml-2">Visualize Data Here</p>
         </Button>
       </Link>
-      {charts[0] ? <div className="mt-6">Or view your saved charts below:</div> : null}
+      {charts[0] ? (
+        <div className="mt-6">Or view your saved charts below:</div>
+      ) : null}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-2">
         {charts
           ? charts.map((chart: Chart) => (
@@ -64,6 +84,11 @@ function Dashboard() {
                         View Chart
                       </Button>
                     </Link>
+                    <Button
+                      className="ml-auto mr-4 mb-4 mt-auto h-8 w-28 bg-muted-foreground hover:bg-muted-foreground/90"
+                      onClick={() => deleteChart(chart.id)}>
+                      {isDeleting ? <Loader className="animate-[spin_3s_linear_infinite] mr-1" /> : 'Delete Chart'}
+                    </Button>
                   </div>
                 </Card>
               </div>
