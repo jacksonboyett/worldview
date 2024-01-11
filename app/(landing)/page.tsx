@@ -7,6 +7,7 @@ import { Globe } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Montserrat } from 'next/font/google';
 import { Quicksand } from 'next/font/google';
+import { useEffect } from 'react';
 
 const font = Montserrat({
   weight: '600',
@@ -20,6 +21,11 @@ const quicksand = Quicksand({
 
 export default function Landing() {
   const { isSignedIn } = useAuth();
+
+  useEffect(() => {
+    $crisp.push(["do", "session:reset"])
+  }, []);
+  
   return (
     <main role="Landing" className="max-w-6xl mx-auto h-screen flex flex-col justify-center">
       <div className="text-center">
