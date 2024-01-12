@@ -25,27 +25,7 @@ export async function POST(req: Request) {
 
     const user_prompt = `Write a report as a JSON object of the following data: ${promptData.indicator} of ${promptData.country} from ${promptData.dateRange}: ${promptData.filteredArr}. Make sure to include national and global reasons to explain the data. Use the following report as an example: ${exampleReport}`;
 
-    console.log("Streaming response")
-    const response = await openai.chat.completions.create({
-      model: 'gpt-3.5-turbo-1106',
-      response_format: { type: 'json_object' },
-      messages: [
-        {
-          role: 'user',
-          content: `${user_prompt}`,
-        },
-      ],
-      functions: generate_report,
-      function_call: 'auto',
-      stream: true,
-    });
-    for await (const chunk of response) {
-      console.log(chunk.choices[0].delta.function_call?.arguments);
-    }
-
-    console.log("OPENAI RESPONSE")
-    console.log(response)
-    
+    // console.log("Streaming response")
     // const response = await openai.chat.completions.create({
     //   model: 'gpt-3.5-turbo-1106',
     //   response_format: { type: 'json_object' },
@@ -57,8 +37,28 @@ export async function POST(req: Request) {
     //   ],
     //   functions: generate_report,
     //   function_call: 'auto',
+    //   stream: true,
     // });
+    // for await (const chunk of response) {
+    //   console.log(chunk.choices[0].delta.function_call?.arguments);
+    // }
+
+    // console.log("OPENAI RESPONSE")
     // console.log(response)
+    
+    const response = await openai.chat.completions.create({
+      model: 'gpt-3.5-turbo-1106',
+      response_format: { type: 'json_object' },
+      messages: [
+        {
+          role: 'user',
+          content: `${user_prompt}`,
+        },
+      ],
+      functions: generate_report,
+      function_call: 'auto',
+    });
+    console.log(response)
 
     // const response = {
     //   choices: [

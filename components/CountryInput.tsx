@@ -20,7 +20,7 @@ function CountryInput({ updateInputs }: CountryInputProps) {
         <SelectTrigger className='active:border-2 active:border-black'>
           <SelectValue placeholder='Country' />
         </SelectTrigger>
-        <SelectContent className='bg-muted'>
+        <SelectContent className='bg-muted h-64'>
           {countriesArr.map((country) => (
             <SelectItem
               className='overflow-hidden flex'

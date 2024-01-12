@@ -18,7 +18,7 @@ function ToInput({ updateInputs }: ToInputProps) {
         <SelectTrigger>
           <SelectValue placeholder='To' />
         </SelectTrigger>
-        <SelectContent className='bg-muted'>
+        <SelectContent className='bg-muted h-64'>
           {yearsArr.map((year) => (
             <SelectItem value={year.toString()} key={year}>
               {year}

@@ -18,9 +18,9 @@ function IndicatorInput({ updateInputs }: IndicatorInputProps) {
         <SelectTrigger>
           <SelectValue placeholder='Indicator' />
         </SelectTrigger>
-        <SelectContent className='bg-muted'>
+        <SelectContent className='bg-muted h-64 w-72 sm:w-full'>
           {indicatorsArr.map((indicator) => (
-            <SelectItem value={indicator} key={indicator}>
+            <SelectItem className='overflow-hidden flex' value={indicator} key={indicator}>
               {indicator}
             </SelectItem>
           ))}
