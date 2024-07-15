@@ -22,7 +22,7 @@ export const checkSubscription = async () => {
 	// 	}
 	// })
 
-		const userSubscription = null
+		const userSubscription: any = null
 
 	if (!userSubscription) {
 		return false
