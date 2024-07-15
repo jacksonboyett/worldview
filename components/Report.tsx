@@ -1,4 +1,4 @@
-import { Report } from '@/types/Types';
+import type { Report } from '@/types/Types';
 import { Globe } from 'lucide-react';
 
 interface ReportProps {
